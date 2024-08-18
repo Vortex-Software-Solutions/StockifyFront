@@ -2,7 +2,6 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "src/core/features/authServerApi";
 import LoaderBig from "src/shared/components/LoaderBig";
-import logo_aa from "@assets/img/logo-aasoftware.jpg";
 import { useState } from "react";
 import { LoginDto } from "src/core/models/dtos/auth/loginDto";
 import { useDispatch } from "react-redux";
@@ -84,12 +83,13 @@ const submitForm = async (data: LoginDto) => {
         <div className="flex flex-col bg-white rounded-lg shadowlg wfull md:w[85%] lg:w[75%] brder">
             <div className="flex flex-col justify-center items-center p-8">
                 <h1 className="text-4xl font-bold mb-6 text-center text-gray-800">
-                    <img
+                    {/* <img
                         src={logo_aa}
                         alt="Image login"
                         className="w-2/4 mb-5 mx-auto"
-                    />
-                    Acceso 614
+                    /> */}
+                    <h2 className="text-[1.40rem] mt-5 text-slate-700 mb-3 text-nowrap font-semibold font-mono tracking-tighter align-middle">Votex Software</h2>
+                    <p className="">Sistema PYMES</p>
                 </h1>
                 <form
                     onSubmit={handleSubmit(submitForm)}
