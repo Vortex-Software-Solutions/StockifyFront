@@ -41,7 +41,7 @@ const Header: React.FC<HeaderProps> = ({ mostrar, children }) => {
                         <img src={yo} className='rounded-full border border-gray-200 h-10 w-10' />
                         <div className='flex-col ml-2'>
                             <h2 className='borde text-sm text-gray-500 font-semibold'>{ `${userData?.name || "Rodrigo"} ${userData?.lastName || "Bojorquez"}` }</h2>
-                            <h2 className='borde text-sm text-white font-semibold bg-cyan-500 rounded-full text-center'>Developer</h2>
+                            <h2 className='borde text-sm text-white font-semibold bg-[#6181F7] rounded-full text-center'>Developer</h2>
                         </div>
                         <FaChevronDown className={`ml-2.5`} />
                         {isOpen && (

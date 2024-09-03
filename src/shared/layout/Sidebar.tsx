@@ -1,11 +1,16 @@
 import { FaChevronRight } from "react-icons/fa";
-import { AiFillDashboard } from "react-icons/ai";
-import { FaCog, FaUsers } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import React, { ComponentType, ReactNode, useState } from "react";
 import Divider from "../components/Divider";
-import { MdHome, MdLocationCity } from "react-icons/md";
-import { FaUserShield } from "react-icons/fa";
+
+import { HiOutlineHome } from "react-icons/hi";
+import { BsBoxSeam } from "react-icons/bs";
+import { HiOutlineTruck } from "react-icons/hi2";
+import { RiMenuSearchLine } from "react-icons/ri";
+import { GoGraph } from "react-icons/go";
+import { TbExchange, TbShoppingCartDollar } from "react-icons/tb";
+import { FaHandHoldingDollar } from "react-icons/fa6";
+
 
 type MenuItem = {
     name: string;
@@ -35,39 +40,38 @@ const Sidebar: React.FC<SidebarProps> = () => {
     const [open] = useState(true)
     
     const menus  = [
-        { name: 'Dashboard', link: '/', icon: AiFillDashboard, hasChild: false },
+        { name: 'Dashboard', link: '/', icon: HiOutlineHome, hasChild: false },
+        { name: 'Productos', link: '/inventory', icon: BsBoxSeam, hasChild: false },
         {
-            name: 'Administración', icon: FaCog, hasChild: true,
+            name: 'Proveedores', icon: HiOutlineTruck, hasChild: true,
             childrens: [
-                { name: 'Residenciales', link: '/residentials', icon: MdLocationCity },
-                // { name: 'Viviendas', link: '/houses', icon: MdHome },
-                { name: 'Usuarios', link: '/users', icon: FaUsers },
-                { name: "Perfiles", link: '/profiles', icon: FaUserShield }
+                { name: 'Listado', link: '/providers', icon: RiMenuSearchLine },
+                { name: 'Inversión', link: '/investment', icon: GoGraph },
+                { name: "Devoluciones", link: '/returns', icon: TbExchange }
             ]
         },
-        // {
-        //     name: 'REPSE', icon: FaShuttleVan, hasChild: true,
-        //     childrens: [
-        //         { name: 'Provedores', link: '/provider', icon: FaTasks },
-        //         { name: 'Documentos', link: '/provider/documentation', icon: GrDocumentText },
-
-        //     ]
-        // },
+        {
+            name: 'Ventas', icon: TbShoppingCartDollar, hasChild: true,
+            childrens: [
+                { name: 'Listado', link: '/sales', icon: RiMenuSearchLine },
+                { name: 'Ganancias', link: '/investment', icon: FaHandHoldingDollar },
+                { name: "Devoluciones", link: '/refunds', icon: TbExchange }
+            ]
+        }
     ];
 
     return (
         <section className='flex h-screen z-30 fixed gap-6'>
             {/* bg-[#0e0e0e] */}
-            <div className={`${open ? ' w-60' : 'w-16'} min-h-screen bg-slate-800 transition duration-500 text-gray-100 px-4 `}>
+            <div className={`${open ? ' w-60' : 'w-16'} min-h-screen bg-[#6181F7] transition duration-500 text-gray-100 px-4 `}>
                 <div className='flex flex-col justify-between h-full'>
                     <div className=''>
-                        <div className='flex justify-center p-5 mb-10'>
+                        <div className='flex justify-center mb-10'>
                             {/* <img src={logo2} className='' /> */}
-                            <h2 className="text-[1.40rem] mt-5 text-nowrap font-semibold font-mono tracking-tighter align-middle">Vortex Software</h2>
+                            <h2 className="text-[1.40rem] mt-5 text-nowrap font-semibold font-Moul tracking-tighter align-middle">Stockify.com</h2>
                         </div>
-                        <h2 className="font-medium">Sistema PYMES</h2>
                         <Divider />
-                        <div className='mt-4 flex flex-col gap-4 relative '>
+                        <div className='mt-4 flex flex-col gap-4 relative py-1'>
                             <ul>
                                 {menus.map((menu, i) => (
                                     menu.hasChild
@@ -76,7 +80,7 @@ const Sidebar: React.FC<SidebarProps> = () => {
                                             <Link
                                                 key={`link-${i}`}
                                                 to={menu.link!}
-                                                className='flex items-center text-sm gap-3.5 font-medium p-2 hover:bg-gray-800 rounded-md'
+                                                className='flex items-center text-sm gap-3.5 font-medium p-2 hover:bg-[#EAEAEA]/15 rounded-md'
                                             >
                                                 <div>{React.createElement(menu.icon, { size: '20' })}</div>
                                                 <h2
@@ -117,7 +121,7 @@ const Submenu: React.FC<SubmenuProps> = ({ menu, index }) => {
                     <Link
                         key={j}
                         to={child.link}
-                        className='flex items-center text-sm gap-3.5 font-medium p-2 hover:bg-gray-800 rounded-md '>
+                        className='flex items-center text-sm gap-3.5 font-medium p-2 hover:bg-[#EAEAEA]/15 rounded-md '>
                         <div>{React.createElement(child.icon, { size: '20' })}</div>
                         <h2>{child.name}</h2>
                     </Link>

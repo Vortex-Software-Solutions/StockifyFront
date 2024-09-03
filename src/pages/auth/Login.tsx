@@ -7,153 +7,136 @@ import { LoginDto } from "src/core/models/dtos/auth/loginDto";
 import { useDispatch } from "react-redux";
 import { saveUserInfo, authenticate } from "src/core/slices/auth/authSlice";
 import { extractFetchErrorMessage } from "src/core/utils/extractFetchErrorMessage";
+import Presentation from "@assets/img/Presentation.png"
 
 const Login: React.FC = () => {
 
-  const [errorAlert, setErrorAlert] = useState<Boolean>(false);
-  const [messageError, setMessageError] = useState<string>('')
-  
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const [login, { isLoading }] = useLoginMutation();
+    const [errorAlert, setErrorAlert] = useState<Boolean>(false);
+    const [messageError, setMessageError] = useState<string>('')
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-} = useForm<LoginDto>();
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const [login, { isLoading }] = useLoginMutation();
 
-const submitForm = async (data: LoginDto) => {
-    try {
-        setErrorAlert(false)
-        const res = await login(data)
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+        reset,
+    } = useForm<LoginDto>();
 
-        if (res.error) {
-            setErrorAlert(true);
+    const submitForm = async (data: LoginDto) => {
+        try {
+            setErrorAlert(false)
+            const res = await login(data)
 
-            const message = extractFetchErrorMessage(res.error);
+            if (res.error) {
+                setErrorAlert(true);
+                const message = extractFetchErrorMessage(res.error);
+                setMessageError(message);
+                throw new Error(message);
+            }
 
-            setMessageError(message);
-            throw new Error(message);
+            if (res.data?.statusCode === 404) {
+                setErrorAlert(true);
+                setMessageError('Credenciales incorrectas');
+                return;
+            }
+
+            reset()
+            const userData = res.data?.dataObject;
+
+            if (!userData || !res.data?.token) {
+                return;
+            }
+
+            localStorage.setItem('userData', JSON.stringify(userData));
+            localStorage.setItem('auth', JSON.stringify(res.data.token));
+
+            dispatch(saveUserInfo({
+                id: userData.id,
+                name: userData.name,
+                lastName: userData.lastName,
+                email: userData.email,
+                token: res.data.token,
+            }));
+
+            dispatch(authenticate(true));
+            navigate('/');
         }
-
-        if (res.data?.statusCode === 404) {
-            setErrorAlert(true);
-            setMessageError('Credenciales incorrectas');
-            return;
+        catch (error) {
+            console.error(error)
         }
+    };
 
-        reset()
-        const userData = res.data?.dataObject;
-
-        if (!userData || !res.data?.token) {
-            return;
-        }
-
-        localStorage.setItem('userData', JSON.stringify(userData));
-        localStorage.setItem('auth', JSON.stringify(res.data.token));
-
-        dispatch(saveUserInfo({
-            id: userData.id,
-            name: userData.name,
-            lastName: userData.lastName,
-            email: userData.email,
-            token: res.data.token,
-        }));
-
-        dispatch(authenticate(true));
-        navigate('/');
-    }
-    catch (error) {
-        console.error(error)
-    }
-};
-
-
-
-
-  return (
-    <main className="flex justify-center items-center bg-gray-100 bgwhite min-h-screen">
-        {isLoading && (
-            <div className="absolute top-0 left-0 right-0 bottom-0 flex justify-center items-center bg-gray-500 bg-opacity-50 z-50">
-                <LoaderBig message={'Espere...'} />
-            </div>
-        )}
-        <div className="flex flex-col bg-white rounded-lg shadowlg wfull md:w[85%] lg:w[75%] brder">
-            <div className="flex flex-col justify-center items-center p-8">
-                <h1 className="text-4xl font-bold mb-6 text-center text-gray-800">
-                    {/* <img
-                        src={logo_aa}
-                        alt="Image login"
-                        className="w-2/4 mb-5 mx-auto"
-                    /> */}
-                    <h2 className="text-[1.40rem] mt-5 text-slate-700 mb-3 text-nowrap font-semibold font-mono tracking-tighter align-middle">Votex Software</h2>
-                    <p className="">Sistema PYMES</p>
-                </h1>
-                <form
-                    onSubmit={handleSubmit(submitForm)}
-                    className="w-full max-w-sm bg-white px-10 py8 rounded-lg"
-                >
-                    <h3 className="text-3xl text-center font-medium mb-5 text-gray-500">
-                        Iniciar sesión
-                    </h3>
-                    <div className="mb-5">
-                        {errorAlert && (
-                            <div className="bg-red-500 text-white py-4 px-8 rounded-lg text-center">
-                                <p className="text-lg">El usuario o contraseña son incorrectos.</p>
-                            </div>
-                        )}
-                    </div>
-                    <div className="mb-5">
-                        <label htmlFor="email" className="text-lg">
-                            Correo
-                        </label>
-                        <input
-                            type="text"
-                            placeholder="Escribe tu correo"
-                            id="email"
-                            className="w-full text-md placeholder-text-[#b1b1b1] placeholder-italic placeholder-font-light border-[1.5px] border-[#b1b1b1] p-2 rounded-md ring-0 focus:outline-none focus:border-gray-500"
-                            {...register('email', {
-                                required: 'Este campo es obligatorio',
-                                pattern: {
-                                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                                    message: 'Dirección de correo electrónico inválida',
-                                },
-                            })}
-                        />
-                        {errors.email && <span className="text-red-500">{errors.email.message as string}</span>}
-                    </div>
-                    <div className="mb-5">
-                        <label htmlFor="password" className="text-lg">
-                            Contraseña
-                        </label>
-                        <input
-                            type="password"
-                            placeholder="*****"
-                            id="password"
-                            className="w-full text-md placeholder-text-[#b1b1b1] placeholder-italic placeholder-font-light border-[1.5px] border-[#b1b1b1] p-2 rounded-lg ring-0 focus:outline-none focus:border-gray-500"
-                            {...register('password', {
-                                required: 'Este campo es obligatorio',
-                            })}
-                        />
-                        {errors.password && <span className="text-red-500">{errors.password.message as string}</span>}
-                    </div>
-                    <div className="mt-12">
-                        <button type="submit" className="bg-black text-white block mx-auto px-10 py-2 font-medium rounded-lg mb-8">
+    return (
+        <main className="flex justify-center items-center bg-gray-100 min-h-screen">
+            {isLoading && (
+                <div className="absolute top-0 left-0 right-0 bottom-0 flex justify-center items-center bg-gray-500 bg-opacity-50 z-50">
+                    <LoaderBig message={'Espere...'} />
+                </div>
+            )}
+            <div className="flex flex-col md:flex-row bg-white rounded-lg overflow-auto shadow-lg w-full max-w-4xl">
+                <div className="w-full md:w-1/2 p-8 flex flex-col justify-center">
+                    <h1 className="text-center text-2xl font-bold mb-8">Bienvenido de nuevo</h1>
+                    <form onSubmit={handleSubmit(submitForm)} className="space-y-6">
+                        <div>
+                            <label htmlFor="email" className="block text-sm font-medium text-gray-700">Correo</label>
+                            <input
+                                type="text"
+                                placeholder="Escribe tu correo"
+                                id="email"
+                                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm p-2"
+                                {...register('email', {
+                                    required: 'Este campo es obligatorio',
+                                    pattern: {
+                                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                                        message: 'Dirección de correo electrónico inválida',
+                                    },
+                                })}
+                            />
+                            {errors.email && <span className="text-red-500 text-sm">{errors.email.message as string}</span>}
+                        </div>
+                        <div>
+                            <label htmlFor="password" className="block text-sm font-medium text-gray-700">Contraseña</label>
+                            <input
+                                type="password"
+                                placeholder="*****"
+                                id="password"
+                                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm p-2"
+                                {...register('password', {
+                                    required: 'Este campo es obligatorio',
+                                })}
+                            />
+                            {errors.password && <span className="text-red-500 text-sm">{errors.password.message as string}</span>}
+                        </div>
+                        <div className="flex justify-between items-center">
+                            <Link to="/ResetPassword" className="flex-row-reverse text-sm text-[#6181F7] hover:underline">¿Olvidaste tu contraseña?</Link>
+                        </div>
+                        <button type="submit" className="w-full py-2 px-4 bg-[#6181F7] text-white rounded-md font-medium">
                             Iniciar Sesión
                         </button>
-                        <button className="block mx-auto">
-                            <Link to="/ResetPassword" className="cursor-pointer text-center hover:underline">
-                                ¿Olvidaste tu contraseña?
-                            </Link>
-                        </button>
+                    </form>
+                    <div className="mt-4 flex justify-center items-center">
+                        <span className="text-gray-500">o</span>
                     </div>
-                </form>
+                    <div className="mt-4 flex justify-center">
+
+                    </div>
+                    <div className="mt-6 text-center">
+                        <span className="text-gray-600">¿Aún no tienes cuenta? </span>
+                        <Link to="/register" className="text-[#6181F7] hover:underline">Crear Cuenta</Link>
+                    </div>
+                </div>
+                <div className="hidden md:block md:w-1/2 bg-[#6181F7] p-8 lg:p-20">
+                    <div className="flex flex-col items-center justify-center h-full">
+                        <h2 className="text-white text-3xl lg:text-4xl font-bold mb-8 ">Stockify.com</h2>
+                        <img src={Presentation} alt="Analytics Image" className="max-w-full h-auto" />
+                    </div>
+                </div>
             </div>
-        </div>
-    </main>
-);
+        </main>
+    );
 }
 
-export default Login
+export default Login;

@@ -28,7 +28,7 @@
     }
   
     .glass-efect {
-      @apply bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-20 border z-50
+      @apply bg-red-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-20 border z-50
     }
   
     .submit-button {

@@ -1,5 +1,5 @@
 import { RouteObject } from "react-router-dom";
-import Dashboard from "./Dasboard";
+import Dashboard from "./Dashboard";
 
 const dashboardRoutes: RouteObject[] = [
     {
