@@ -66,9 +66,9 @@ const Sidebar: React.FC<SidebarProps> = () => {
             <div className={`${open ? ' w-60' : 'w-16'} min-h-screen bg-[#6181F7] transition duration-500 text-gray-100 px-4 `}>
                 <div className='flex flex-col justify-between h-full'>
                     <div className=''>
-                        <div className='flex justify-center mb-10'>
+                        <div className='flex justify-center my-5'>
                             {/* <img src={logo2} className='' /> */}
-                            <h2 className="text-[1.40rem] mt-5 text-nowrap font-semibold font-Moul tracking-tighter align-middle">Stockify.com</h2>
+                            <h2 className="text-[1.40rem] text-nowrap font-semibold font-Moul tracking-tighter align-middle">Stockify.com</h2>
                         </div>
                         <Divider />
                         <div className='mt-4 flex flex-col gap-4 relative py-1'>

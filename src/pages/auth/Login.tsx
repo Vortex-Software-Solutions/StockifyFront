@@ -81,12 +81,12 @@ const Login: React.FC = () => {
                     <h1 className="text-center text-2xl font-bold mb-8">Bienvenido de nuevo</h1>
                     <form onSubmit={handleSubmit(submitForm)} className="space-y-6">
                         <div>
-                            <label htmlFor="email" className="block text-sm font-medium text-gray-700">Correo</label>
+                            <label htmlFor="email" className="block text-base font-medium text-gray-700">Correo</label>
                             <input
                                 type="text"
                                 placeholder="Escribe tu correo"
                                 id="email"
-                                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm p-2"
+                                className="mt-1 block w-full border border-gray-300 placeholder:text-sm rounded-lg shadow-sm p-2"
                                 {...register('email', {
                                     required: 'Este campo es obligatorio',
                                     pattern: {
@@ -98,19 +98,19 @@ const Login: React.FC = () => {
                             {errors.email && <span className="text-red-500 text-sm">{errors.email.message as string}</span>}
                         </div>
                         <div>
-                            <label htmlFor="password" className="block text-sm font-medium text-gray-700">Contraseña</label>
+                            <label htmlFor="password" className="block text-base font-medium text-gray-700">Contraseña</label>
                             <input
                                 type="password"
                                 placeholder="*****"
                                 id="password"
-                                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm p-2"
+                                className="mt-1 block w-full border border-gray-300 placeholder:text-sm rounded-lg shadow-sm p-2"
                                 {...register('password', {
                                     required: 'Este campo es obligatorio',
                                 })}
                             />
                             {errors.password && <span className="text-red-500 text-sm">{errors.password.message as string}</span>}
                         </div>
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-end items-center">
                             <Link to="/ResetPassword" className="flex-row-reverse text-sm text-[#6181F7] hover:underline">¿Olvidaste tu contraseña?</Link>
                         </div>
                         <button type="submit" className="w-full py-2 px-4 bg-[#6181F7] text-white rounded-md font-medium">
