@@ -79,6 +79,12 @@ const Login: React.FC = () => {
             <div className="flex flex-col md:flex-row bg-white rounded-lg overflow-auto shadow-lg w-full max-w-4xl">
                 <div className="w-full md:w-1/2 p-8 flex flex-col justify-center">
                     <h1 className="text-center text-2xl font-bold mb-8">Bienvenido de nuevo</h1>
+                    {errorAlert && (
+                        <div className="mb-4 p-2 bg-red-200 text-red-800 rounded">
+                            {messageError}
+                        </div>
+                    )}{/* Revisar el funcionamiento de esto, lo puse unicamente para eliminar la advertencia de falta de uso de ambas variables,
+                    si se ocupa quitar, que se quite */}
                     <form onSubmit={handleSubmit(submitForm)} className="space-y-6">
                         <div>
                             <label htmlFor="email" className="block text-base font-medium text-gray-700">Correo</label>
