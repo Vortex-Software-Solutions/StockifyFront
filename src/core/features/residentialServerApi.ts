@@ -1,4 +1,4 @@
-import { list } from "postcss";
+//import { list } from "postcss";
 import { serverApi } from "../serverApi";
 import { ResidentialResponse } from "../models/responses/residential.response";
 import { ResidentialCreateDto } from "../models/dtos/residentials/ResidentialCreateDto";
