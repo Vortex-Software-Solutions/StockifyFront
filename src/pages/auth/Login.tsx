@@ -120,7 +120,7 @@ const Login: React.FC = () => {
                         </button>
                     </form>
                     <div className="mt-4 flex justify-center items-center">
-                        <span className="text-gray-500">o</span>
+                        <span className="text-gray-500">owo</span>
                     </div>
                     <div className="mt-4 flex justify-center">
 
