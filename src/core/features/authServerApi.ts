@@ -6,9 +6,9 @@ import { RegisterDto } from '../models/dtos/auth/registerDto'
 export const authServerApi = serverApi.injectEndpoints({ 
     endpoints: (builder) => ({
 
-        registerUser: builder.mutation<AuthResponse, RegisterDto>({
+        register: builder.mutation<AuthResponse, RegisterDto>({
             query: (newUser) => ({
-                url: '/Auth/Register',
+                url: 'Auth/Register',
                 method: 'POST',
                 body: newUser,
             }),
@@ -16,7 +16,7 @@ export const authServerApi = serverApi.injectEndpoints({
 
         login: builder.mutation<AuthResponse, LoginDto>({
             query: (credentials) => ({
-                url: '/Auth/SignIn',
+                url: 'Auth/login',
                 method: 'POST',
                 body: credentials,
             }),
@@ -30,5 +30,5 @@ export const authServerApi = serverApi.injectEndpoints({
 })
 export const {
     useLoginMutation,
-    useRegisterUserMutation,
+    useRegisterMutation,
     useTokenQuery} = authServerApi

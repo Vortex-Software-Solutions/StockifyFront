@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { saveUserInfo, authenticate } from "src/core/slices/auth/authSlice";
 import { extractFetchErrorMessage } from "src/core/utils/extractFetchErrorMessage";
 import Presentation from "@assets/img/Presentation.png"
+import { toast } from "sonner";
 
 const Login: React.FC = () => {
 
@@ -26,47 +27,41 @@ const Login: React.FC = () => {
     } = useForm<LoginDto>();
 
     const submitForm = async (data: LoginDto) => {
-        try {
-            setErrorAlert(false)
-            const res = await login(data)
+        const loginPromise = login(data).unwrap();
 
-            if (res.error) {
-                setErrorAlert(true);
-                const message = extractFetchErrorMessage(res.error);
-                setMessageError(message);
-                throw new Error(message);
+        toast.promise(loginPromise, {
+            loading: "Cargando",
+            success: (res) => {
+                reset()
+                const userData = res.dataObject!;
+
+                localStorage.setItem('userData', JSON.stringify(userData));
+                localStorage.setItem('auth', JSON.stringify(res.token));
+
+                dispatch(saveUserInfo({
+                    id: userData.id,
+                    name: userData.name,
+                    lastName: userData.lastName,
+                    email: userData.email,
+                    token: res.token!,
+                }));
+
+                dispatch(authenticate(true));
+
+                navigate('/');
+
+                return "Exito";
+            },
+            error: (error) => {
+                console.error(error)
+
+                if (error.data?.statusCode === 400) {
+                    return "Credenciales incorrectas";
+                }
+
+                return "Algo salio mal";
             }
-
-            if (res.data?.statusCode === 404) {
-                setErrorAlert(true);
-                setMessageError('Credenciales incorrectas');
-                return;
-            }
-
-            reset()
-            const userData = res.data?.dataObject;
-
-            if (!userData || !res.data?.token) {
-                return;
-            }
-
-            localStorage.setItem('userData', JSON.stringify(userData));
-            localStorage.setItem('auth', JSON.stringify(res.data.token));
-
-            dispatch(saveUserInfo({
-                id: userData.id,
-                name: userData.name,
-                lastName: userData.lastName,
-                email: userData.email,
-                token: res.data.token,
-            }));
-
-            dispatch(authenticate(true));
-            navigate('/');
-        }
-        catch (error) {
-            console.error(error)
-        }
+        })
     };
 
     return (
@@ -76,6 +71,7 @@ const Login: React.FC = () => {
                     <LoaderBig message={'Espere...'} />
                 </div>
             )}
+
             <div className="flex flex-col md:flex-row flex-1 bg-white rounded-none md:rounded-lg border-none md:border-2 h-svh md:h-auto  items-center border-gray-100 overflow-auto shadow-xl w-full max-w-4xl">
                 <div className="w-full md:w-1/2 p-8 flex flex-col justify-center flex-1 grow">
                     <h1 className="text-center text-2xl font-bold mb-8">Bienvenido de nuevo</h1>
@@ -130,7 +126,7 @@ const Login: React.FC = () => {
                 </div>
 
 
-                <div className="hidden md:flex md:w-1/2 bg-[#6181F7] flex-col flex-1 grow h-full">
+                <div className="hidden md:flex md:w-1/2 bg-[#6181F7] flex-col p-20 md:p-10 h-full">
                     <div className="flex flex-col items-center justify-center h-full">
                         <h2 className="text-white text-3xl lg:text-4xl font-moul mb-8 ">Stockify.com</h2>
                         <img src={Presentation} alt="Analytics Image" className="max-w-full h-auto" />
