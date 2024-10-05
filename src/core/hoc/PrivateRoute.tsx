@@ -31,9 +31,11 @@ const PrivateRoute: React.FC = () => {
                 dispatch(saveUserInfo({
                     id: tokenData.dataObject.id,
                     name: tokenData.dataObject.name,
-                    lastName: tokenData.dataObject.lastName,
+                    firstLastName: tokenData.dataObject.firstLastName,
+                    secondLastName: tokenData.dataObject.secondLastName,
                     email: tokenData.dataObject.email,
-                    token
+                    token,
+                    isOwner: tokenData.dataObject.isOwner
                 }));
                 dispatch(authenticate(true));
                 setIsAllowed(true);
@@ -47,7 +49,7 @@ const PrivateRoute: React.FC = () => {
         return (
             <div className="absolute top-0 left-0 right-0 bottom-0 flex justify-center items-center z-40">
                 <div className="absolute top-0 left-0 right-0 bottom-0 bg-gray-300 bg-opacity-50 blur-lg z-50" />
-                <LoaderBig message={'Espere...'} />
+                <LoaderBig />
             </div>
         )
     }

@@ -1,14 +1,9 @@
 export interface UserDto {
     id: string
-    profileId: string
-    profileName: string
     name: string
-    lastName: string
+    firstLastName: string
+    secondLastName: string
     email: string
-    emailConfirmed: boolean
-    enabled: boolean
-    isDeleted: boolean
-    createdDate: string
-    changedDate: string
-    deletedDate?: string
+    profileId: string
+    isOwner: boolean
 }

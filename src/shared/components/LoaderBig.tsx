@@ -6,9 +6,9 @@ type LoaderProps = {
 
 const LoaderBig: React.FC<LoaderProps> = ({ message }) => {
     return (
-        <div>
+        <div className="flex justify-center items-center flex-col gap-2">
             <FaSpinner className="animate-spin h-10 w-10 text-gray-700" />
-            <p className='font-bold text-gray-700'>{message || "Cargando..."}</p>
+            <p className='font-bold text-gray-700 text-center'>{message || "Cargando..."}</p>
         </div>
     )
 }
