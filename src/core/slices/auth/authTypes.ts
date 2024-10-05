@@ -1,8 +1,10 @@
 export interface UserData {
     id: string
     name: string
-    lastName: string
+    firstLastName: string
+    secondLastName: string
     email: string
+    isOwner: boolean
     token: string
 }
 

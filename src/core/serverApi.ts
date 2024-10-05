@@ -1,10 +1,27 @@
-import { CONFIG } from "@config/config";
+import {CONFIG, Environmet} from "@config/config";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { RootState } from "./store";
 
+let baseUrl = ""
+
+switch (CONFIG.environment) {
+    case Environmet.PROD:
+        baseUrl = CONFIG.prod.baseUrl
+        break;
+    case Environmet.DEV:
+        baseUrl = CONFIG.dev.baseUrl
+        break;
+    case Environmet.LOCAL:
+        baseUrl = CONFIG.local.baseUrl
+        break;
+    default:
+        baseUrl = CONFIG.local.baseUrl
+        break;
+}
+
 export const serverApi = createApi({
     baseQuery: fetchBaseQuery({
-        baseUrl: CONFIG.isProduction ? CONFIG.prod.baseUrl : CONFIG.dev.baseUrl,
+        baseUrl: baseUrl,
         prepareHeaders: (headers, { getState }) => {
             headers.set('Access-Control-Allow-Origin', '*');
             headers.set("Content-Type", "application/json");

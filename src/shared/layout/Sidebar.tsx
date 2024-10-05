@@ -111,7 +111,7 @@ const Submenu: React.FC<SubmenuProps> = ({ menu, index }) => {
         <div className='' key={index}>
             <button
                 onClick={() => { setSubMenuOpen(!subMenuOpen); }}
-                className='flex items-center text-sm gap-3.5 font-medium p-2 w-full rounded-md '>
+                className='flex items-center text-sm gap-3.5 font-medium p-2 w-full rounded-md hover:bg-[#EAEAEA]/15'>
                 <div>{React.createElement(menu.icon, { size: '20' })}</div>
                 <h2 className={``}>{menu.name}</h2>
                 <FaChevronRight className={`${subMenuOpen && 'rotate-90 transition-all'} duration-500 h-4 w-4 absolute right-1`} />
