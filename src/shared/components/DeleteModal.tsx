@@ -2,19 +2,19 @@ import { IoClose } from "react-icons/io5"
 import dangerIcon from "@assets/icons/danger.png"
 
 interface DeleteModalProps {
-    toggleDeleteModal: (id?: string) => void
-    softDeleteId: string
+    toggleModal: (id?: string) => void
+    deleteId: string
     deleteAction: (id: string) => void
 }
 
-const DeleteModal: React.FC<DeleteModalProps> = ({ toggleDeleteModal, softDeleteId, deleteAction }) => {
+const DeleteModal: React.FC<DeleteModalProps> = ({ toggleModal, deleteId, deleteAction }) => {
     return (
-        <article className="fixed inset-0 flex justify-center items-center z-40 bg-black bg-opacity-70" onClick={() => toggleDeleteModal()} >
+        <article className="fixed inset-0 flex justify-center items-center z-40 bg-black bg-opacity-70" onClick={() => toggleModal()} >
             <section className="bg-white rounded-lg p-12 relative min-w-[30%]" onClick={e => e.stopPropagation()}>
                 <IoClose
                     size={28}
                     className="absolute top-7 right-7 cursor-pointer"
-                    onClick={() => toggleDeleteModal()}
+                    onClick={() => toggleModal()}
                 />
 
                 <img src={dangerIcon} alt="Danger" className="mx-auto max-h-[200px]" />
@@ -30,13 +30,13 @@ const DeleteModal: React.FC<DeleteModalProps> = ({ toggleDeleteModal, softDelete
                 <div className="flex gap-7 justify-center text-white font-medium text-lg">
                     <button
                         className="bg-gray-400 rounded-lg px-7 py-1 "
-                    onClick={() => toggleDeleteModal()}
+                    onClick={() => toggleModal()}
                     >
                         Cancelar
                     </button>
                     <button
                         className="bg-red-400 rounded-lg px-7 py-1"
-                        onClick={() => deleteAction(softDeleteId)}
+                        onClick={() => deleteAction(deleteId)}
                     >
                         Eliminar
                     </button>

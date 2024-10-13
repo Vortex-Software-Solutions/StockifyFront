@@ -3,6 +3,7 @@ import PrivateRoute from "./core/hoc/PrivateRoute";
 import { authRoutes } from "./pages/auth/authRoutes";
 import LayoutAdmin from "./shared/layout/LayoutAdmin";
 import dashboardRoutes from "./pages/dashboard/dashboardRoutes";
+import {companiesRoutes} from "./pages/companies/CompaniesRoutes.tsx";
 
 const appRoutes: RouteObject[] = [
     {
@@ -13,7 +14,7 @@ const appRoutes: RouteObject[] = [
                 element: <LayoutAdmin />,
                 children: [
                     ...dashboardRoutes,
-                    // ...residentialRoutes,
+                    ...companiesRoutes
                     // ...houseRoutes,
                     // ...userRoutes,
                     // ...profileRoutes

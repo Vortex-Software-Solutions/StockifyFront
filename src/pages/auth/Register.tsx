@@ -35,9 +35,11 @@ const Register: React.FC = () => {
                 dispatch(saveUserInfo({
                     id: userData.id,
                     name: userData.name,
-                    lastName: userData.lastName,
+                    firstLastName: userData.firstLastName,
+                    secondLastName: userData.secondLastName,
                     email: userData.email,
                     token: res.token!,
+                    isOwner: userData.isOwner
                 }));
 
                 dispatch(authenticate(true));

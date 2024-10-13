@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import yo from "@assets/img/yo.jpg"
+import yo from "@assets/img/user.png"
 import { FaChevronDown, FaSignOutAlt } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout, selectUserData } from 'src/core/slices/auth/authSlice'

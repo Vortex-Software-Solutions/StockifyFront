@@ -29,7 +29,7 @@
   }
 
   .divisor {
-    @apply border border-gray-300 w-full
+    @apply border-[#DAE2E9] w-full
   }
 
   .divisor-dashed {
@@ -47,4 +47,5 @@
   .cancel-button {
     @apply bg-red-400 text-white font-semibold py-1 text-sm px-4 rounded
   }
+
 }
