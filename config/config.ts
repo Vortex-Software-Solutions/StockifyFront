@@ -7,8 +7,7 @@ export enum Environmet {
 export const CONFIG = {
     environment: Environmet.LOCAL,
     prod: {
-        baseUrl: 'https://stockifyback-a0ekgfhzbxdzb3g8.eastus-01.azurewebsites.net/api',
-
+        baseUrl: 'https://api-stockify.vortexsoftware.net/api/',
     },
     dev: {
         baseUrl: 'http://localhost:5000/api/',

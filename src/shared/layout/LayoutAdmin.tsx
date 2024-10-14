@@ -26,7 +26,7 @@ const LayoutAdmin = () => {
                         <FaBars className='fa-xl text-gray-800' />
                     </button>
                 </Header>
-                <div className='flex-grow  bg-[#DAE2E9] p-5'>
+                <div className='flex-grow  bg-[#F1F5F9] p-5'>
                     <Outlet />
                 </div>
                 <Footer />

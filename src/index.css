@@ -17,19 +17,19 @@
   }
 
   .input-form {
-    @apply block w-full placeholder:px-1.5 px-3 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-400 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-gray-700 sm:text-sm sm:leading-6 outline-none;
+    @apply block w-full placeholder:px-1.5 px-3 text-base font-normal rounded-md border-0 py-1.5 text-gray-600 shadow-sm ring-1 ring-inset ring-gray-400 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-gray-700 sm:text-sm sm:leading-6 outline-none;
   }
 
   .label-form {
-    @apply font-semibold mb-1;
+    @apply font-semibold mb-1 text-sm;
   }
 
   .form-error {
-    @apply text-red-500 text-sm ml-4 absolute bottom-2 left-0
+    @apply text-red-500 font-light text-sm ml-2 absolute bottom-2 left-0
   }
 
   .divisor {
-    @apply border border-gray-300 w-full
+    @apply border-[#DAE2E9] w-full
   }
 
   .divisor-dashed {
@@ -41,10 +41,15 @@
   }
 
   .submit-button {
-    @apply bg-blue-400 text-white font-semibold py-1 text-sm px-4 rounded
+    @apply bg-primary-purple text-white font-semibold py-1 text-sm px-4 rounded
   }
 
   .cancel-button {
-    @apply bg-red-400 text-white font-semibold py-1 text-sm px-4 rounded
+    @apply bg-grey-cancel text-white font-semibold py-1 text-sm px-4 rounded
   }
+
+  .danger-button {
+    @apply bg-red-400 text-white font-semibold py-1 text-sm px-4 rounded hover:cursor-pointer
+  }
+
 }

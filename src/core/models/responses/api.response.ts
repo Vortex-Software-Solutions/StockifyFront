@@ -3,4 +3,5 @@ export interface ApiResponse<T> {
     statusCode: number
     dataObject?: T,
     listDataObject?: T[]
+    totalPages: number
 }
