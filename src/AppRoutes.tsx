@@ -4,6 +4,9 @@ import { authRoutes } from "./pages/auth/authRoutes";
 import LayoutAdmin from "./shared/layout/LayoutAdmin";
 import dashboardRoutes from "./pages/dashboard/dashboardRoutes";
 import {companiesRoutes} from "./pages/companies/CompaniesRoutes.tsx";
+import productsRoutes from "./pages/products/ProductsRoutes.tsx";
+import salesRoutes from "./pages/sales/SalesRoutes.tsx";
+import providersRoutes from "./pages/providers/ProvidersRoutes.tsx";
 
 const appRoutes: RouteObject[] = [
     {
@@ -14,13 +17,17 @@ const appRoutes: RouteObject[] = [
                 element: <LayoutAdmin />,
                 children: [
                     ...dashboardRoutes,
-                    ...companiesRoutes
-                    // ...houseRoutes,
-                    // ...userRoutes,
-                    // ...profileRoutes
+                    ...companiesRoutes,
+                    ...productsRoutes,
+                    ...salesRoutes,
+                    ...providersRoutes
                 ]
             }
         ],
+    },
+    {
+        path: '*',
+        element: <>Not found</>
     },
     ...authRoutes
 ]

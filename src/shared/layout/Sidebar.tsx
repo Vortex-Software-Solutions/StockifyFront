@@ -47,21 +47,21 @@ const Sidebar: React.FC<SidebarProps> = () => {
                 {name: "Empresas", link: '/companies', icon: HiOutlineBuildingOffice2}
             ]
         },
-        {name: 'Productos', link: '/inventory', icon: BsBoxSeam, hasChild: false},
+        {name: 'Productos', link: '/products', icon: BsBoxSeam, hasChild: false},
         {
             name: 'Proveedores', icon: HiOutlineTruck, hasChild: true,
             childrens: [
                 {name: 'Listado', link: '/providers', icon: RiMenuSearchLine},
-                {name: 'Inversión', link: '/investment', icon: GoGraph},
-                {name: "Devoluciones", link: '/returns', icon: TbExchange}
+                {name: 'Inversión', link: '/providers/inbounds', icon: GoGraph},
+                {name: "Devoluciones", link: '/providers/returns', icon: TbExchange}
             ]
         },
         {
             name: 'Ventas', icon: TbShoppingCartDollar, hasChild: true,
             childrens: [
                 {name: 'Listado', link: '/sales', icon: RiMenuSearchLine},
-                {name: 'Ganancias', link: '/investment', icon: FaHandHoldingDollar},
-                {name: "Devoluciones", link: '/refunds', icon: TbExchange}
+                {name: 'Ganancias', link: '/sales/earnings', icon: FaHandHoldingDollar},
+                {name: "Devoluciones", link: '/sales/returns', icon: TbExchange}
             ]
         }
     ];

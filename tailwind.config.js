@@ -13,6 +13,7 @@ export default {
         "grey-light": "#B1B1B1",
         "green-action": "#4ACCA3",
         "grey-desactivate": "rgba(234, 234, 234, 0.3)",
+        "grey-cancel": "#b1b4ba"
       },
       fontFamily: {
         "inter": ["Inter", "sans-serif"],

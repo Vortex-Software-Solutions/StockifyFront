@@ -10,11 +10,10 @@ import Tooltip from "../../../shared/components/Tooltip.tsx";
 import {Link} from "react-router-dom";
 import {FaEdit, FaTrash} from "react-icons/fa";
 import {MdBlock} from "react-icons/md";
-import {IoIosCheckmarkCircle, IoMdAddCircle} from "react-icons/io";
+import {IoIosCheckmarkCircle, IoMdAddCircle, IoMdSearch} from "react-icons/io";
 import DeleteModal from "../../../shared/components/DeleteModal.tsx";
 import NotResults from "../../../shared/components/NotResults.tsx";
 import {toast} from "sonner";
-import Divider from "../../../shared/components/Divider.tsx";
 
 /*
 * Explicacion documentada:
@@ -32,6 +31,7 @@ const CompaniesList: React.FC = () => {
     const [page, setPage] = useState<number>(1);
     const [normalizedData, setNormalizedData] = useState<CompanyDto[]>();
     const [searchTerm, setSearchTerm] = useState<string>('');
+    const [searchTrigger, setSearchTrigger] = useState<string>('');
     const [deleteId, setDeleteId] = useState<string | undefined>(undefined);
     const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
 
@@ -39,7 +39,7 @@ const CompaniesList: React.FC = () => {
         data: companies,
         isFetching: companiesIsFetching,
         isLoading: companiesIsLoading
-    } = useSearchCompanyQuery({page, term: searchTerm}, {refetchOnMountOrArgChange: true});
+    } = useSearchCompanyQuery({page, term: searchTrigger}, {refetchOnMountOrArgChange: true});
 
     const [disable] = useDisableCompanyMutation();
     const [enable] = useEnableCompanyMutation();
@@ -95,6 +95,16 @@ const CompaniesList: React.FC = () => {
         setShowDeleteModal(!showDeleteModal);
     }
 
+    const handleSearchClick = () => {
+        setSearchTrigger(searchTerm);
+    }
+
+    const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            setSearchTrigger(searchTerm);
+        }
+    }
+
     useEffect(() => {
         if (companies && !companiesIsFetching)
             setNormalizedData(companies.listDataObject)
@@ -115,20 +125,24 @@ const CompaniesList: React.FC = () => {
                             size={24}
                         />
 
-                        <p>Nueva</p>
+                        <p>Agregar</p>
                     </Link>
                 </div>
 
-                <input
-                    type="text"
-                    placeholder="Buscar empresa"
-                    className="border border-gray-300 placeholder:text-sm rounded-lg shadow-sm p-2 outline-none"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                />
+                <div className="flex items-center gap-2 relative font-normal">
+                    <input
+                        type="text"
+                        placeholder="Buscar empresa"
+                        className="border border-gray-300 placeholder:text-sm rounded-lg shadow-sm p-2 pr-9 outline-none"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        onKeyDown={handleKeyPress}
+                    />
+                    <IoMdSearch size={24} className="cursor-pointer absolute right-2 text-gray-400" onClick={handleSearchClick}/>
+                </div>
             </div>
 
-            <hr className="divisor" />
+            <hr className="divisor"/>
 
             <div className='text-gray-500 font-semibold borde p-5 w-[95%] ml-5 mt-5 oerflow-auto'>
                 {normalizedData && normalizedData?.length > 0 ? (
@@ -176,10 +190,10 @@ const CompaniesList: React.FC = () => {
                                                     </Tooltip>
                                                 )}
 
-                                            <Link to={`${item.id}/edit`}>
-                                                <FaEdit className='text-sky-500 hover:text-sky-400'/>
+                                            <Link to={`edit/${item.id}`}>
+                                                <FaEdit className='text-primary-purple'/>
                                             </Link>
-                                            <FaTrash className='text-red-500 hover:text-red-400'
+                                            <FaTrash className='text-red-500'
                                                      onClick={() => toggleDeleteModal(item.id)}/>
                                         </td>
                                     </tr>

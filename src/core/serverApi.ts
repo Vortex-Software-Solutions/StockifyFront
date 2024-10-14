@@ -40,4 +40,5 @@ export const serverApi = createApi({
         },
     }),
     endpoints: () => ({}),
+    tagTypes: ['Company', "User", "Sale", "Provider"],
 })
