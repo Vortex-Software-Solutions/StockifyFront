@@ -2,9 +2,9 @@ name: Deploy Front
 
 on: 
     push:
-        branches: [ "main" ]
+        branches: [ "dev" ]
     pull_request:
-        branches: [ "main" ]
+        branches: [ "dev" ]
         types: [closed]
     workflow_dispatch:
 
