@@ -12,6 +12,7 @@ env:
     SSH_HOST: ${{ secrets.HOST }}
     SSH_USERNAME: ${{ secrets.USERNAME }}
     SSH_KEY: ${{ secrets.ACCESS_KEY }}
+    SSH_PASS: ${{ secrets.PASSPHRASE }}
 
 jobs: 
 
@@ -71,6 +72,7 @@ jobs:
           host: ${{ env.SSH_HOST }}
           username: ${{ env.SSH_USERNAME }}
           key: ${{ env.SSH_KEY }}
+          passphrase: ${{ env.SSH_PASS}}
           port: 22
           script: |
             cd /var/www/stockify.vortexsoftware.net
