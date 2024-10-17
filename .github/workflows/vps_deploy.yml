@@ -1,5 +1,11 @@
 name: Deploy Front
 
+env:
+    SSH_HOST: ${{ secrets.HOST }}
+    SSH_USERNAME: ${{ secrets.USERNAME }}
+    SSH_KEY: ${{ secrets.ACCESS_KEY }}
+    SSH_PASS: ${{ secrets.PASSPHRASE }}
+
 on: 
     push:
         branches: [ "daniel" ]
@@ -8,16 +14,10 @@ on:
         types: [closed]
     workflow_dispatch:
 
-env:
-    SSH_HOST: ${{ secrets.HOST }}
-    SSH_USERNAME: ${{ secrets.USERNAME }}
-    SSH_KEY: ${{ secrets.ACCESS_KEY }}
-    SSH_PASS: ${{ secrets.PASSPHRASE }}
 
 jobs: 
 
   # if_merged:
-  #   if: github.event.pull_request.merged == true
   #   runs-on: ubuntu-latest
   #   steps:
   #     - name: Checkout repository
@@ -80,4 +80,4 @@ jobs:
           script: |
             cd /var/www/stockify.vortexsoftware.net
             rm -rf *
-            cp -r dist/* .
+            cp -r /dist/* .
