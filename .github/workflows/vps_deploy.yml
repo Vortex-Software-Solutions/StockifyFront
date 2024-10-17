@@ -2,7 +2,7 @@ name: Deploy Front
 
 on: 
     push:
-        branches: [ "dev" ]
+        branches: [ "daniel" ]
     pull_request:
         branches: [ "dev" ]
         types: [closed]
@@ -64,6 +64,10 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: node-app
+          path: dist  
+
+      - name: Verificar artefacto descargado
+        run: ls -l dist 
 
       - name: Deploy to VPS using SSH
         uses: appleboy/ssh-action@v1.1.0
@@ -76,4 +80,4 @@ jobs:
           script: |
             cd /var/www/stockify.vortexsoftware.net
             rm -rf *
-            cp -r ./dist/* .
+            cp -r ~/dist/* .
