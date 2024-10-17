@@ -16,19 +16,19 @@ env:
 
 jobs: 
 
-  if_merged:
-    if: github.event.pull_request.merged == true
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+  # if_merged:
+  #   if: github.event.pull_request.merged == true
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v3
 
-      - name: Confirm Merge
-        run: echo "El PR ha sido aprobado y mergeado correctamente."
+  #     - name: Confirm Merge
+  #       run: echo "El PR ha sido aprobado y mergeado correctamente."
 
   build:
     runs-on: ubuntu-latest
-    needs: if_merged
+    # needs: if_merged
     steps:
     - uses: actions/checkout@v4
 
@@ -80,4 +80,4 @@ jobs:
           script: |
             cd /var/www/stockify.vortexsoftware.net
             rm -rf *
-            cp -r ./dist/* .
+            cp -r dist/* .
