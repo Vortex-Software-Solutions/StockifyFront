@@ -64,7 +64,8 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: node-app
-          path: dist
+      - name: Verificar artefacto descargado
+        run: ls -l ./dist
 
       - name: Deploy to VPS using SSH
         uses: appleboy/ssh-action@v1.1.0
