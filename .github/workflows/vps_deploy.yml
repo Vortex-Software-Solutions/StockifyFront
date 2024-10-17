@@ -80,4 +80,4 @@ jobs:
           script: |
             cd /var/www/stockify.vortexsoftware.net
             rm -rf *
-            cp -r ~/dist/* .
+            cp -r ./dist/* .
