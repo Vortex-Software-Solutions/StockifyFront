@@ -2,7 +2,7 @@ name: Deploy Front
 
 on: 
     push:
-        branches: [ "dev" ]
+        branches: [ "daniel" ]
     pull_request:
         branches: [ "dev" ]
         types: [closed]
