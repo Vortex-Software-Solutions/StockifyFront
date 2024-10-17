@@ -1,6 +1,6 @@
 import {FaChevronRight} from "react-icons/fa";
 import {Link} from 'react-router-dom';
-import React, {ComponentType, ReactNode, useState} from "react";
+import React, {ComponentType, useEffect, useState} from "react";
 import Divider from "../components/Divider";
 
 import {HiOutlineHome} from "react-icons/hi";
@@ -28,17 +28,17 @@ type SubMenuItem = {
 };
 
 type SidebarProps = {
-    children?: ReactNode;
+    open: boolean,
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>
 };
 
 type SubmenuProps = {
     menu: MenuItem;
     index: number;
+    open: boolean
 };
 
-const Sidebar: React.FC<SidebarProps> = () => {
-
-    const [open] = useState(true)
+const Sidebar: React.FC<SidebarProps> = ({open, setOpen}) => {
 
     const menus = [
         {name: 'Dashboard', link: '/', icon: HiOutlineHome, hasChild: false},
@@ -66,51 +66,67 @@ const Sidebar: React.FC<SidebarProps> = () => {
         }
     ];
 
+    // Detectar si la pantalla es pequeña o dispositivo móvil
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth < 768) { // Aquí defines el ancho límite
+                setOpen(false); // Cierra la sidebar por defecto
+            } else {
+                setOpen(true); // Abre la sidebar en pantallas grandes
+            }
+        };
+
+        // Ejecutar la función al cargar la página
+        handleResize();
+
+        // Escuchar cambios en el tamaño de la pantalla
+        window.addEventListener('resize', handleResize);
+
+        // Limpiar el evento al desmontar el componente
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
     return (
-        <section className='flex h-screen z-30 fixed gap-6'>
-            {/* bg-[#0e0e0e] */}
+        <section className='fixed md:static flex h-svh z-30 gap-6'>
             <div
-                className={`${open ? ' w-60' : 'w-16'} min-h-screen bg-[#6181F7] transition duration-500 text-gray-100 px-4 `}>
-                <div className='flex flex-col justify-between h-full'>
-                    <div className=''>
-                        <div className='flex justify-center my-5'>
-                            {/* <img src={logo2} className='' /> */}
-                            <h2 className="text-[1.40rem] text-nowrap font-semibold font-Moul tracking-tighter align-middle">Stockify.com</h2>
+                className={`${open ? 'w-60 px-4' : 'w-0'} min-h-screen bg-[#6181F7] transition-all duration-500 text-gray-100 overflow-hidden`}>
+                <div className='flex flex-col h-full'>
+                    <div className='flex justify-center my-5'>
+                        <div className="flex flex-col w-full items-center">
+                            <h2 className="text-[1.40rem] text-nowrap font-semibold font-Moul tracking-tighter align-middle mb-5">Stockify.com</h2>
+                            <Divider/>
                         </div>
-                        <Divider/>
-                        <div className='mt-4 flex flex-col gap-4 relative py-1'>
-                            <ul>
-                                {menus.map((menu, i) => (
-                                    menu.hasChild
-                                        ? <Submenu menu={menu} index={i} key={`sm-${i}`}/>
-                                        : <li key={i}>
-                                            <Link
-                                                key={`link-${i}`}
-                                                to={menu.link!}
-                                                className='flex items-center text-sm gap-3.5 font-medium p-2 hover:bg-[#EAEAEA]/15 rounded-md'
-                                            >
-                                                <div>{React.createElement(menu.icon, {size: '20'})}</div>
-                                                <h2
-                                                    style={{
-                                                        transitionDelay: `${i + 3}00ms`
-                                                    }}
-                                                    className={''}
-                                                >{menu.name}</h2>
-                                            </Link>
-                                        </li>
-                                ))}
-                            </ul>
-                        </div>
+                    </div>
+                    <div className='flex flex-col gap-4 relative py-1'>
+                        <ul>
+                            {menus.map((menu, i) => (
+                                menu.hasChild
+                                    ? <Submenu menu={menu} index={i} key={`sm-${i}`} open={open}/>
+                                    : <li key={i}>
+                                        <Link
+                                            key={`link-${i}`}
+                                            to={menu.link!}
+                                            className='flex items-center text-sm gap-3.5 font-medium p-2 hover:bg-[#EAEAEA]/15 rounded-md'
+                                        >
+                                            <div>{React.createElement(menu.icon, {size: '20'})}</div>
+                                            <h2 className={`whitespace-nowrap transition-all duration-300`}>{menu.name}</h2>
+                                        </Link>
+                                    </li>
+                            ))}
+                        </ul>
                     </div>
                 </div>
             </div>
+
         </section>
     )
 }
 
 export default Sidebar
 
-const Submenu: React.FC<SubmenuProps> = ({menu, index}) => {
+const Submenu: React.FC<SubmenuProps> = ({menu, index, open}) => {
 
     const [subMenuOpen, setSubMenuOpen] = useState(false);
 
@@ -120,11 +136,13 @@ const Submenu: React.FC<SubmenuProps> = ({menu, index}) => {
                 onClick={() => {
                     setSubMenuOpen(!subMenuOpen);
                 }}
-                className='flex items-center text-sm gap-3.5 font-medium p-2 w-full rounded-md hover:bg-[#EAEAEA]/15'>
-                <div>{React.createElement(menu.icon, {size: '20'})}</div>
-                <h2 className={``}>{menu.name}</h2>
+                className={`flex items-center text-sm ${open ? "gap-3.5" : "gap-3.5"}  font-medium p-2 w-full rounded-md hover:bg-[#EAEAEA]/15`}>
+                <div className="flex items-center gap-2">
+                    {React.createElement(menu.icon, {size: '20'})}
+                    <h2 className={`whitespace-nowrap`}>{menu.name}</h2>
+                </div>
                 <FaChevronRight
-                    className={`${subMenuOpen && 'rotate-90 transition-all'} duration-500 h-4 w-4 absolute right-1`}/>
+                    className={`${subMenuOpen && 'rotate-90 transition-all'} duration-500`}/>
             </button>
             <div className={`flex-col ml-10 ${!subMenuOpen && 'hidden'} transition-all duration-500`}>
                 {menu.childrens?.map((child, j) => (
@@ -133,7 +151,7 @@ const Submenu: React.FC<SubmenuProps> = ({menu, index}) => {
                         to={child.link}
                         className='flex items-center text-sm gap-3.5 font-medium p-2 hover:bg-[#EAEAEA]/15 rounded-md '>
                         <div>{React.createElement(child.icon, {size: '20'})}</div>
-                        <h2>{child.name}</h2>
+                        <h2 className={`whitespace-nowrap transition-all duration-300}`}>{child.name}</h2>
                     </Link>
                 ))}
             </div>

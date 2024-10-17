@@ -6,6 +6,10 @@ export interface UserData {
     email: string
     isOwner: boolean
     token: string
+    roleId: string
+    roleName: string
+    enabled: boolean
+    companyId: string
 }
 
 export interface AuthState {

@@ -3,6 +3,7 @@ import React from "react";
 import CompaniesList from "./admin/CompaniesList.tsx";
 import CompanyCreate from "./admin/CompanyCreate.tsx";
 import CompanyUpdate from "./admin/CompanyUpdate.tsx";
+import RegisterCompany from "./RegisterCompany.tsx";
 
 export const companiesRoutes: RouteObject[] = [
     {
@@ -21,5 +22,9 @@ export const companiesRoutes: RouteObject[] = [
                 element: <CompanyUpdate />
             }
         ]
+    },
+    {
+        path: "/register-company",
+        element: <RegisterCompany />
     }
 ]

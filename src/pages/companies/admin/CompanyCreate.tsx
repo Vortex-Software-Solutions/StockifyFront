@@ -53,10 +53,10 @@ const CompanyCreate = () => {
 
             <hr className="divisor"/>
 
-            <div className='text-gray-500 font-semibold borde p-5 w-[95%] ml-5 mt-5 oerflow-auto'>
+            <div className='text-gray-500 font-semibold p-5 overflow-auto'>
 
                 <form onSubmit={handleSubmit(submitForm)}>
-                    <div className="grid grid-cols-2 gap-x-5">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-5">
                         <div className="input-container">
                             <label htmlFor="name" className="label-form">Nombre</label>
                             <input type="text" className="input-form"

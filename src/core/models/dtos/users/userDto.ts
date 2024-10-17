@@ -4,6 +4,9 @@ export interface UserDto {
     firstLastName: string
     secondLastName: string
     email: string
-    profileId: string
+    roleId: string
     isOwner: boolean
+    roleName: string
+    enabled: boolean
+    companyId: string
 }

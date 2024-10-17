@@ -34,18 +34,16 @@ const Login: React.FC = () => {
                 localStorage.setItem('auth', JSON.stringify(res.token));
 
                 dispatch(saveUserInfo({
-                    id: userData.id,
-                    name: userData.name,
-                    firstLastName: userData.firstLastName,
-                    secondLastName: userData.secondLastName,
-                    email: userData.email,
-                    token: res.token!,
-                    isOwner: userData.isOwner
+                    ...userData,
+                    token: res.token!
                 }));
 
                 dispatch(authenticate(true));
 
-                navigate('/');
+                if (userData.companyId === null)
+                    navigate("/register-company")
+                else
+                    navigate('/');
 
                 return "Exito";
             },

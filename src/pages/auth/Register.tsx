@@ -33,18 +33,13 @@ const Register: React.FC = () => {
                 localStorage.setItem('auth', JSON.stringify(res.token));
 
                 dispatch(saveUserInfo({
-                    id: userData.id,
-                    name: userData.name,
-                    firstLastName: userData.firstLastName,
-                    secondLastName: userData.secondLastName,
-                    email: userData.email,
-                    token: res.token!,
-                    isOwner: userData.isOwner
+                    ...userData,
+                    token: res.token!
                 }));
 
                 dispatch(authenticate(true));
 
-                navigate('/');
+                navigate('/register-company');
 
                 return "Exito";
             },
@@ -53,6 +48,10 @@ const Register: React.FC = () => {
 
                 if (error.data?.statusCode === 400) {
                     return "Credenciales incorrectas";
+                }
+
+                if (error.status === 409) {
+                    return error.data.title
                 }
 
                 return "Algo salio mal";

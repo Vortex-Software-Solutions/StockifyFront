@@ -25,11 +25,22 @@ const Tooltip: React.FC<TooltipProps> = ({ title, message, children }) => {
 
     const hideTooltip = () => setVisible(false);
 
+    // Maneja el comportamiento en móviles (click/touch)
+    const handleTouch = () => {
+        if (!visible) {
+            showTooltip();
+            setTimeout(() => hideTooltip(), 3000); // Cierra el tooltip después de 3 segundos
+        } else {
+            hideTooltip();
+        }
+    };
+
     return (
         <div
             className="block relative"
             onMouseEnter={showTooltip}
             onMouseLeave={hideTooltip}
+            onClick={handleTouch} // Para dispositivos móviles
             ref={targetRef}
         >
             {children}
@@ -52,7 +63,5 @@ const Tooltip: React.FC<TooltipProps> = ({ title, message, children }) => {
                 )}
         </div>
     );
-
 };
-
 export default Tooltip;
