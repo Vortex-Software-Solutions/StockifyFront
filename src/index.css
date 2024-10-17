@@ -20,6 +20,10 @@
     @apply block w-full placeholder:px-1.5 px-3 text-base font-normal rounded-md border-0 py-1.5 text-gray-600 shadow-sm ring-1 ring-inset ring-gray-400 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-gray-700 sm:text-sm sm:leading-6 outline-none;
   }
 
+  .special-input {
+    @apply focus:bg-gray-50 border-primary-purple border-[1.5px] ring-0 focus:ring-primary-purple text-primary-purple;
+  }
+
   .label-form {
     @apply font-semibold mb-1 text-sm;
   }
@@ -41,11 +45,11 @@
   }
 
   .submit-button {
-    @apply bg-primary-purple text-white font-semibold py-1 text-sm px-4 rounded
+    @apply bg-primary-purple text-white font-semibold py-1 sm:text-base md:text-sm px-4 rounded
   }
 
   .cancel-button {
-    @apply bg-grey-cancel text-white font-semibold py-1 text-sm px-4 rounded
+    @apply bg-grey-cancel text-white font-semibold py-1 sm:text-base md:text-sm px-4 rounded
   }
 
   .danger-button {

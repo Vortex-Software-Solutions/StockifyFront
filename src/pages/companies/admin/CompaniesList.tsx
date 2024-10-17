@@ -1,7 +1,6 @@
 import {CompanyDto} from "../../../core/models/dtos/companies/companyDto.ts";
 import {
     useDisableCompanyMutation, useEnableCompanyMutation,
-    useListCompaniesQuery,
     useSearchCompanyQuery, useSoftDeleteCompanyMutation
 } from "../../../core/features/companyServerApi.ts";
 import React, {useEffect, useState} from "react";
@@ -66,6 +65,7 @@ const CompaniesList: React.FC = () => {
         toast.promise(deletePromise, {
             loading: "Cargando",
             success: () => {
+                toggleDeleteModal()
                 return "Exito";
             },
             error: (err) => {
@@ -115,9 +115,9 @@ const CompaniesList: React.FC = () => {
     return (
         <div className='w-full bg-white min-h-full rounded-md'>
             <div
-                className='flex gap-2 items-center justify-between text-sm text-gray-500 font-semibold px-10 py-4'>
+                className='flex flex-col md:flex-row gap-2 items-start md:items-center justify-between text-sm text-gray-500 font-semibold px-10 py-4'>
 
-                <div className="flex items-center gap-5">
+                <div className="flex items-center gap-2 md:gap-5">
                     <h2 className='text-lg'>Empresas</h2>
 
                     <Link to="/companies/create" className="flex items-center gap-1 text-green-action">
@@ -125,7 +125,7 @@ const CompaniesList: React.FC = () => {
                             size={24}
                         />
 
-                        <p>Agregar</p>
+                        <p className="hidden md:flex">Agregar</p>
                     </Link>
                 </div>
 
@@ -133,21 +133,22 @@ const CompaniesList: React.FC = () => {
                     <input
                         type="text"
                         placeholder="Buscar empresa"
-                        className="border border-gray-300 placeholder:text-sm rounded-lg shadow-sm p-2 pr-9 outline-none"
+                        className="border border-gray-300 placeholder:text-sm rounded-lg shadow-sm p-1 md:p-2 pr-9 outline-none"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         onKeyDown={handleKeyPress}
                     />
-                    <IoMdSearch size={24} className="cursor-pointer absolute right-2 text-gray-400" onClick={handleSearchClick}/>
+                    <IoMdSearch size={24} className="cursor-pointer absolute right-2 text-gray-400"
+                                onClick={handleSearchClick}/>
                 </div>
             </div>
 
             <hr className="divisor"/>
 
-            <div className='text-gray-500 font-semibold borde p-5 w-[95%] ml-5 mt-5 oerflow-auto'>
-                {normalizedData && normalizedData?.length > 0 ? (
-                    <>
-                        <table className="table-auto w-full text-sm rounded-md flex-1">
+            {normalizedData && normalizedData?.length > 0 ? (
+                <>
+                    <div className='text-gray-500 font-semibold borde p-10 overflow-x-auto'>
+                        <table className="table-auto text-sm rounded-md flex-1 w-full overflow-x-auto">
                             <thead className='border-b font-medium dark:border-neutral-500'>
                             <tr>
                                 <th className='text-left'>Nombre</th>
@@ -201,26 +202,26 @@ const CompaniesList: React.FC = () => {
                             }
                             </tbody>
                         </table>
+                    </div>
 
-                        <div className='flex justify-center gap-4 mt-7'>
-                            <button
-                                className='bg-primary-purple text-white rounded-md px-4 text-sm py-1 font-semibold disabled:opacity-70 disabled:cursor-not-allowed'
-                                onClick={() => setPage(page - 1)}
-                                disabled={page === 1}
-                            >
-                                Anterior
-                            </button>
-                            <button
-                                className='bg-primary-purple text-white rounded-md px-4 text-sm py-1 font-semibold disabled:opacity-70 disabled:cursor-not-allowed'
-                                onClick={() => setPage(page + 1)}
-                                disabled={page === companies?.totalPages}
-                            >
-                                Siguiente
-                            </button>
-                        </div>
-                    </>
-                ) : <NotResults message="Aun no hay datos"/>}
-            </div>
+                    <div className='flex justify-center gap-4 mt-7'>
+                        <button
+                            className='bg-primary-purple text-white rounded-md px-4 text-sm py-1 font-semibold disabled:opacity-70 disabled:cursor-not-allowed'
+                            onClick={() => setPage(page - 1)}
+                            disabled={page === 1}
+                        >
+                            Anterior
+                        </button>
+                        <button
+                            className='bg-primary-purple text-white rounded-md px-4 text-sm py-1 font-semibold disabled:opacity-70 disabled:cursor-not-allowed'
+                            onClick={() => setPage(page + 1)}
+                            disabled={page === companies?.totalPages}
+                        >
+                            Siguiente
+                        </button>
+                    </div>
+                </>
+            ) : <NotResults message="Aun no hay datos"/>}
             {showDeleteModal &&
                 <DeleteModal deleteId={deleteId!} toggleModal={toggleDeleteModal} deleteAction={handleDelete}/>}
         </div>

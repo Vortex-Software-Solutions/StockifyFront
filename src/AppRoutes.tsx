@@ -25,11 +25,11 @@ const appRoutes: RouteObject[] = [
             }
         ],
     },
+    ...authRoutes,
     {
         path: '*',
         element: <>Not found</>
     },
-    ...authRoutes
 ]
 
 export default appRoutes;
