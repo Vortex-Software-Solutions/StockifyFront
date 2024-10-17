@@ -3,7 +3,7 @@ import React from "react";
 const Dashboard: React.FC = () => {
     return (
         <div>
-            <h1>Proximamente Dashboard</h1>
+            <h1>Aqui estará el Dashboard</h1>
         </div>
     )
 }
