@@ -77,10 +77,10 @@ jobs:
           host: ${{ env.SSH_HOST }}
           username: ${{ env.SSH_USERNAME }}
           key: ${{ env.SSH_KEY }}
-          passphrase: ${{ env.SSH_PASS}}
           port: 22
           script:
            whoami
+           pwd
            scp -r ./dist/* ${{ env.SSH_USERNAME }}@${{ env.SSH_HOST }}:/var/www/stockify.vortexsoftware.net/
     
     
