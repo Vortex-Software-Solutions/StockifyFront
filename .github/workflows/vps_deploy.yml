@@ -61,11 +61,8 @@ jobs:
 
     - name: COPY DIST TO SSH
       run: |
-        echo ${{env.SSH_USERNAME}}
-        echo ${{env.SSH_HOST}}
-        scp -r ./dist/* ${{env.SSH_USERNAME}}@${{env.SSH_HOST}}:/var/www/stockify.vortexsoftware.net/ || exit 1
-     
-      env:
-        SSH_HOST: ${{ secrets.HOST }}
-        SSH_USERNAME: ${{ secrets.USERNAME }}
+        echo ${{ secrets.HOST }}
+        echo ${{ secrets.USERNAME }}
+        scp -r ./dist/* ${{secrets.USERNAME}}@${{secrets.HOST}}:/var/www/stockify.vortexsoftware.net/ || exit 1
+
     
