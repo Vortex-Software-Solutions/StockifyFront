@@ -74,11 +74,14 @@ jobs:
     - name: Deploy to VPS using SSH
       uses: appleboy/ssh-action@v1.1.0
       with:
-        host: ${{ env.SSH_HOST }}
-        username: ${{ env.SSH_USERNAME }}
-        key: ${{ env.SSH_KEY }}
-        passphrase: ${{ env.SSH_PASS}}
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.ACCESS_KEY }}
+        passphrase: ${{ secrets.PASSPHRASE }}
         port: 22
+        source: "./dist/*"
+        target: "/var/www/stockify.vortexsoftware.net"
+        strip_components: 1
         script: |
-          scp -r ./dist/* $SSH_USERNAME@{{$SSH_HOST}}:/var/www/stockify.vortexsoftware.net/
-
+          cd /var/www/stockify.vortexsoftware.net
+          ls -la
