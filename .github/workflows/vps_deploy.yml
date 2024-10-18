@@ -72,12 +72,15 @@ jobs:
         path: ./dist
 
     - name: SETUP SSH
-      uses: webfactory/ssh-agent@v0.7.0
+      uses: appleboy/ssh-action@v1.1.0
       with:
-        ssh-private-key : ${{ env.SSH_KEY }}
-    
-    - name: Deploy to VPS
-      run: |
-        scp -r ./dist/* ${{ env.SSH_USERNAME }}@${{ env.SSH_HOST }}:/var/www/stockify.vortexsoftware.net/
+        host: ${{ env.SSH_HOST}}
+        username: ${{ env.SSH_USERNAME}}
+        key: ${{ env.SSH_KEY}}
+        passphrase: ${{ env.SSH_PASS}}
+        port: 22
+        script:
+          whoami
+          scp -r ./dist/* ${{ env.SSH_USERNAME }}@${{ env.SSH_HOST }}:/var/www/stockify.vortexsoftware.net/
     
     
