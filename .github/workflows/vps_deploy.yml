@@ -74,10 +74,10 @@ jobs:
     - name: Deploy to VPS using SSH
       uses: appleboy/ssh-action@v1.1.0
       with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.ACCESS_KEY }}
-        passphrase: ${{ secrets.PASSPHRASE }}
+        host: ${{ env.SSH_HOST }}
+        username: ${{ env.SSH_USERNAME }}
+        key: ${{ env.SSH_KEY }}
+        passphrase: ${{ env.SSH_PASS }}
         port: 22
         source: "./dist/*"
         target: "/var/www/stockify.vortexsoftware.net"
