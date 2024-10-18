@@ -72,8 +72,10 @@ jobs:
         path: ./dist
 
     - name: Deploy to VPS using SSH
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.ACCESS_KEY }}
       run: |
-        echo "${{env.SSH_KEY}}" > private_key.pem
+        echo "$SSH_PRIVATE_KEY" > private_key.pem
         chmod 600 private_key.pem
         scp -i private_key.pem -r ./dist/* ${{ env.SSH_USERNAME }}@${{ env.SSH_HOST }}:/var/www/stockify.vortexsoftware.net/
         ssh -i private_key.pem ${{ env.SSH_USERNAME }}@${{ env.SSH_HOST }}"cd /var/www/stockify.vortexsoftware.net && ls -la"
