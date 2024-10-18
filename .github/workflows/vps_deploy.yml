@@ -74,6 +74,6 @@ jobs:
         scp -r ./dist/* ${{env.SSH_USERNAME}}@${{env.SSH_HOST}}:/var/www/stockify.vortexsoftware.net/ || exit 1
      
       env:
-        SSH_HOST: ${{secrets.HOST}}
+        SSH_HOST: ${{ secrets.HOST}}
         SSH_USERNAME: ${{ secrets.USERNAME }}
     
