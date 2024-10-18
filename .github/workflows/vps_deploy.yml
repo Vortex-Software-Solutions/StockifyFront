@@ -72,16 +72,9 @@ jobs:
         path: ./dist
 
     - name: Deploy to VPS using SSH
-      uses: appleboy/ssh-action@v1.1.0
-      with:
-        host: ${{ env.SSH_HOST }}
-        username: ${{ env.SSH_USERNAME }}
-        key: ${{ env.SSH_KEY }}
-        passphrase: ${{ env.SSH_PASS }}
-        port: 22
-        source: "./dist/*"
-        target: "/var/www/stockify.vortexsoftware.net"
-        strip_components: 1
-        script: |
-          cd /var/www/stockify.vortexsoftware.net
-          ls -la
+      run: |
+        echo "$SSH_PRIVATE_KEY" > private_key.pem
+        chmod 600 private_key.pem
+        scp -i private_key.pem -r ./dist/* ${{ env.SSH_USERNAME }}@${{ env.SSH_HOST }}:/var/www/stockify.vortexsoftware.net/
+        ssh -i private_key.pem ${{ env.SSH_USERNAME }}@${{ env.SSH_HOST }}"cd /var/www/stockify.vortexsoftware.net && ls -la"
+        rm -f private_key.pem
