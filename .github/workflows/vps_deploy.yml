@@ -80,6 +80,5 @@ jobs:
         passphrase: ${{ env.SSH_PASS}}
         port: 22
         script: |
-          cd /var/www/stockify.vortexsoftware.net
-          rm -rf *
-          cp -r ./dist/* .
+          scp -r ./dist/* $SSH_USERNAME@{{$SSH_HOST}}:/var/www/stockify.vortexsoftware.net/
+
