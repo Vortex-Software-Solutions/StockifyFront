@@ -14,7 +14,7 @@ env:
     SSH_HOST: ${{ secrets.HOST }}
     SSH_USERNAME: ${{ secrets.USERNAME }}
     SSH_KEY: ${{ secrets.ACCESS_KEY }}
-    SSH_PASS: ${{ secrets.PASSPHRASE }}
+    SSH_PASS: ${{ secrets.PASSPHRASEd }}
 
 permissions:
   contents: read
@@ -71,8 +71,13 @@ jobs:
         name: node-app
         path: ./dist
 
-    - name: Deploy to VPS using SSH
+    - name: SETUP SSH
+      uses: webfactory/ssh-agent@v0.7.0
+      with:
+        ssh-private-key : ${{ env.SSH_KEY }}
+    
+    - name: Deploy to VPS
       run: |
         scp -r ./dist/* ${{ env.SSH_USERNAME }}@${{ env.SSH_HOST }}:/var/www/stockify.vortexsoftware.net/
-        ssh  ${{ env.SSH_USERNAME }}@${{ env.SSH_HOST }}"cd /var/www/stockify.vortexsoftware.net && ls -la"
-        rm -f private_key.pem
+    
+    
