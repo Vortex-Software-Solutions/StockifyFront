@@ -59,6 +59,17 @@ jobs:
         name: node-app
         path: ./dist
 
+    - name: Add SSH key to known_hosts
+      run: |
+        mkdir -p ~/.ssh
+        ssh-keyscan -H ${{ secrets.HOST }} >> ~/.ssh/known_hosts
+
+    - name: Set up SSH key
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.ACCESS_KEY }}" > ~/.ssh/id_ed25519
+        chmod 600 ~/.ssh/id_ed25519
+
     - name: COPY DIST TO SSH
       run: |
         echo ${{ secrets.HOST }}
