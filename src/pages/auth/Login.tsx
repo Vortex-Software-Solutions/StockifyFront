@@ -1,12 +1,12 @@
-import {useForm} from "react-hook-form";
-import {Link, useNavigate} from "react-router-dom";
-import {useLoginMutation} from "src/core/features/authServerApi";
-import {LoginDto} from "src/core/models/dtos/auth/loginDto";
-import {useDispatch} from "react-redux";
-import {saveUserInfo, authenticate} from "src/core/slices/auth/authSlice";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+import { useLoginMutation } from "src/core/features/authServerApi";
+import { LoginDto } from "src/core/models/dtos/auth/loginDto";
+import { useDispatch } from "react-redux";
+import { saveUserInfo, authenticate } from "src/core/slices/auth/authSlice";
 import Presentation from "@assets/img/Presentation.png"
-import {toast} from "sonner";
-import {ErrorResponse} from "../../core/models/responses/error.response.ts";
+import { toast } from "sonner";
+import { ErrorResponse } from "../../core/models/responses/error.response.ts";
 
 const Login: React.FC = () => {
 
@@ -17,7 +17,7 @@ const Login: React.FC = () => {
     const {
         register,
         handleSubmit,
-        formState: {errors},
+        formState: { errors },
         reset,
     } = useForm<LoginDto>();
 
@@ -61,11 +61,11 @@ const Login: React.FC = () => {
                 className="bg-white rounded-none md:rounded-lg border-none md:border-2 h-svh md:h-auto items-center border-gray-100 overflow-auto shadow-xl w-full max-w-4xl flex flex-col">
                 <section className="flex w-full grow">
                     <div className="w-full md:w-1/2 flex flex-col justify-center px-8 py-10">
-                        <h1 className="text-center text-2xl font-bold mb-8">Bienvenido de nuevo</h1>
+                        <h1 className="text-center text-2xl font-bold mb-8">Awebo ya jalo</h1>
                         <form onSubmit={handleSubmit(submitForm)} className="space-y-6">
                             <div>
                                 <label htmlFor="email"
-                                       className="block text-base font-medium text-gray-700">Correo</label>
+                                    className="block text-base font-medium text-gray-700">Correo</label>
                                 <input
                                     type="text"
                                     placeholder="Escribe tu correo"
@@ -84,7 +84,7 @@ const Login: React.FC = () => {
                             </div>
                             <div>
                                 <label htmlFor="password"
-                                       className="block text-base font-medium text-gray-700">Contraseña</label>
+                                    className="block text-base font-medium text-gray-700">Contraseña</label>
                                 <input
                                     type="password"
                                     placeholder="*****"
@@ -99,11 +99,11 @@ const Login: React.FC = () => {
                             </div>
                             <div className="flex justify-end items-center">
                                 <Link to="/ResetPassword"
-                                      className="flex-row-reverse text-sm text-[#6181F7] hover:underline">¿Olvidaste
+                                    className="flex-row-reverse text-sm text-[#6181F7] hover:underline">¿Olvidaste
                                     tu contraseña?</Link>
                             </div>
                             <button type="submit"
-                                    className="w-full py-2 px-4 bg-[#6181F7] text-white rounded-md font-medium">
+                                className="w-full py-2 px-4 bg-[#6181F7] text-white rounded-md font-medium">
                                 Iniciar Sesión
                             </button>
                         </form>
@@ -123,7 +123,7 @@ const Login: React.FC = () => {
                         className="hidden md:w-1/2  md:flex bg-[#6181F7] flex-col justify-center p-20 md:p-10 min-h-max">
                         <div className="flex flex-col items-center justify-center">
                             <h2 className="text-white text-3xl lg:text-4xl font-moul mb-8 ">Stockify.com</h2>
-                            <img src={Presentation} alt="Analytics Image" className="max-w-full"/>
+                            <img src={Presentation} alt="Analytics Image" className="max-w-full" />
                         </div>
                     </div>
                 </section>
