@@ -63,6 +63,6 @@ jobs:
       run: |
         echo ${{ secrets.HOST }}
         echo ${{ secrets.USERNAME }}
-        scp -o StrictHostKeyChecking=no -r ./dist/* ${{ secrets.USERNAME }}@${{ secrets.HOST }}:/var/www/stockify.vortexsoftware.net/ || exit 1
+        scp -r ./dist/* ${{ secrets.USERNAME }}@${{ secrets.HOST }}:/var/www/stockify.vortexsoftware.net/ || exit 1
 
     
