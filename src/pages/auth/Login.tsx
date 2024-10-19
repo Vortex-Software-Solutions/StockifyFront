@@ -61,7 +61,7 @@ const Login: React.FC = () => {
                 className="bg-white rounded-none md:rounded-lg border-none md:border-2 h-svh md:h-auto items-center border-gray-100 overflow-auto shadow-xl w-full max-w-4xl flex flex-col">
                 <section className="flex w-full grow">
                     <div className="w-full md:w-1/2 flex flex-col justify-center px-8 py-10">
-                        <h1 className="text-center text-2xl font-bold mb-8">Awebo ya jalo</h1>
+                        <h1 className="text-center text-2xl font-bold mb-8">Bienvenido de nuevo</h1>
                         <form onSubmit={handleSubmit(submitForm)} className="space-y-6">
                             <div>
                                 <label htmlFor="email"
