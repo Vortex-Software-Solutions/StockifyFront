@@ -5,7 +5,7 @@ import Divider from "../components/Divider";
 
 import {HiOutlineHome} from "react-icons/hi";
 import {BsBoxSeam} from "react-icons/bs";
-import {HiOutlineBuildingOffice2, HiOutlineTruck} from "react-icons/hi2";
+import {HiOutlineBuildingOffice2,HiOutlineShieldCheck, HiOutlineTruck} from "react-icons/hi2";
 import {RiMenuSearchLine} from "react-icons/ri";
 import {GoGraph} from "react-icons/go";
 import {TbExchange, TbShoppingCartDollar} from "react-icons/tb";
@@ -44,7 +44,9 @@ const Sidebar: React.FC<SidebarProps> = ({open, setOpen}) => {
         {name: 'Dashboard', link: '/', icon: HiOutlineHome, hasChild: false},
         {
             name: "Administración", icon: IoSettingsOutline, hasChild: true, childrens: [
-                {name: "Empresas", link: '/companies', icon: HiOutlineBuildingOffice2}
+                {name: "Empresas", link: '/companies', icon: HiOutlineBuildingOffice2},
+                {name: "Roles", link: '/roles', icon: HiOutlineShieldCheck}
+
             ]
         },
         {name: 'Productos', link: '/products', icon: BsBoxSeam, hasChild: false},
