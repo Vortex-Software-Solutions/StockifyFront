@@ -58,6 +58,17 @@ jobs:
       with:
         name: node-app
         path: ./dist
+    - name: Deploy to VPS using SSH
+      uses: appleboy/ssh-action@v1.1.0
+      with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.ACCESS_KEY }}
+          port: 22
+          script: |
+            cd /var/www/stockify.vortexsoftware.net
+            rm -rf *
+            echo "Borrado de datos"
 
     - name: Add SSH key to known_hosts
       run: |
