@@ -5,7 +5,7 @@ export enum Environmet {
 }
 
 export const CONFIG = {
-    environment: Environmet.LOCAL,
+    environment: Environmet.PROD,
     prod: {
         baseUrl: 'https://api-stockify.vortexsoftware.net/api/',
     },
