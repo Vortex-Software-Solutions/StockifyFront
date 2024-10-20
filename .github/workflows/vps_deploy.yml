@@ -40,8 +40,8 @@ jobs:
       env: 
         VITE_APP_API_URL: ${{ secrets.VITE_APP_API_URL }}
       run: |
-       npm run build --mode production || exit 1
-        tsc --noEmit || exit 1
+        run: npm run build --if-present && tsc --noEmit
+
 
     - name: List build output
       run: ls -l ./dist
