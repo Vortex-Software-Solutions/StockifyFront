@@ -75,9 +75,11 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.ACCESS_KEY }}
-          port: 22
+          port: ${{ secrets.PORT}}
           script: |
-            mv dist dist_backup || true 
+            mv /var/www/stockify.vortexsoftware.net/ /var/backups || true 
+            cd /var/www/stockify.vortexsoftware.net/
+            rm -f *
             echo "Directorio preparado para nueva versión"
 
     - name: Transfer files to VPS
@@ -90,10 +92,9 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.ACCESS_KEY }}
-          port: 22
+          port: ${{ secrets.PORT}}
           script: |
-            cd /var/www/stockify.vortexsoftware.net/dist
-            rm -rf dist_backup
+            cd /var/www/stockify.vortexsoftware.net/
             ls -l
             echo "Despliegue exitoso"
     
