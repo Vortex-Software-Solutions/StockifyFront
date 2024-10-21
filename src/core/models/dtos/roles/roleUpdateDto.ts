@@ -1,4 +1,4 @@
-export interface ProfileUpdateDto {
+export interface RoleUpdateDto {
     id: string
     title: string
     description: string
