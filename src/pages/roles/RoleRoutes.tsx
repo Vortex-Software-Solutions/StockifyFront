@@ -3,7 +3,7 @@ import RoleList from "./RoleList";
 import RoleCreate from "./RoleCreate";
 import RoleUpdate from "./RoleUpdate" ;
 
-const RolesRoutes: RouteObject[] = [
+const rolesRoutes: RouteObject[] = [
     {
         path: "/roles",
         children: [
@@ -23,4 +23,4 @@ const RolesRoutes: RouteObject[] = [
     }
 ]
 
-export default RolesRoutes
+export default rolesRoutes
