@@ -10,7 +10,7 @@ export const CONFIG = {
         baseUrl: 'https://api-stockify.vortexsoftware.net/api/',
     },
     dev: {
-        baseUrl: 'http://localhost:5000/api/',
+        baseUrl: 'https://api-stockify.vortexsoftware.net/api/',
     },
     local: {
         baseUrl: "http://localhost:5000/api/"
