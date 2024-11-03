@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import React, {ComponentType, useEffect, useState} from "react";
 import Divider from "../components/Divider";
 
+import { BsPeopleFill } from "react-icons/bs";
 import {HiOutlineHome} from "react-icons/hi";
 import {BsBoxSeam} from "react-icons/bs";
 import {HiOutlineBuildingOffice2,HiOutlineShieldCheck, HiOutlineTruck} from "react-icons/hi2";
@@ -45,7 +46,8 @@ const Sidebar: React.FC<SidebarProps> = ({open, setOpen}) => {
         {
             name: "Administración", icon: IoSettingsOutline, hasChild: true, childrens: [
                 {name: "Empresas", link: '/companies', icon: HiOutlineBuildingOffice2},
-                {name: "Roles", link: '/roles', icon: HiOutlineShieldCheck}
+                {name: "Roles", link: '/roles', icon: HiOutlineShieldCheck},
+                {name: "Usuarios", link: 'users', icon: BsPeopleFill}
 
             ]
         },

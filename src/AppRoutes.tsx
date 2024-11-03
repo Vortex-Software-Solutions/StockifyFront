@@ -8,6 +8,7 @@ import productsRoutes from "./pages/products/ProductsRoutes.tsx";
 import salesRoutes from "./pages/sales/SalesRoutes.tsx";
 import providersRoutes from "./pages/providers/ProvidersRoutes.tsx";
 import rolesRoutes from "./pages/roles/RoleRoutes.tsx";
+import { usersRoutes } from "./pages/users/UsersRoutes.tsx";
 
 const appRoutes: RouteObject[] = [
     {
@@ -23,6 +24,7 @@ const appRoutes: RouteObject[] = [
                     ...salesRoutes,
                     ...providersRoutes,
                     ...rolesRoutes,
+                    ...usersRoutes
                 ]
             }
         ],
